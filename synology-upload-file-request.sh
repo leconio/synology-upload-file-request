@@ -75,15 +75,16 @@ if [ ! -z "$PASSWORD" ]
 then
 	echo "Login to synology file share..."
 	curl -s -L -X POST "$HOST/sharing/webapi/entry.cgi/SYNO.Core.Sharing.Login" \
-			-j -c /tmp/syno_file_upload_cookies \
+			-j -c ./tmp/syno_file_upload_cookies \
 			-d "api=SYNO.Core.Sharing.Login&method=login&version=1&sharing_id=%22$SHARING_ID%22&password=%22$PASSWORD%22"
 else
   echo "Initialize connection..."
   curl -s -L "$HOST/sharing/$SHARING_ID" \
-    -j -c /tmp/syno_file_upload_cookies
+    -j -c ./tmp/syno_file_upload_cookies
 fi
 
-cat /tmp/syno_file_upload_cookies
+echo "cookies"
+cat ./tmp/syno_file_upload_cookies
 
 echo "Uploading the file..."
 FILE_SIZE=$(stat --printf="%s" $FILE)
@@ -97,4 +98,4 @@ curl -s -L -X POST "$HOST/webapi/entry.cgi?api=SYNO.FileStation.Upload&method=up
         -F "size=\"$FILE_SIZE\"" \
         -F "file=@\"$FILE\""
 
-rm -f /tmp/syno_file_upload_cookies
+rm -f ./tmp/syno_file_upload_cookies
