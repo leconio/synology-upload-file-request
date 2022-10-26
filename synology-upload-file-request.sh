@@ -83,6 +83,8 @@ else
     -j -c /tmp/syno_file_upload_cookies
 fi
 
+cat /tmp/syno_file_upload_cookies
+
 echo "Uploading the file..."
 FILE_SIZE=$(stat --printf="%s" $FILE)
 FILE_LAST_MODIFIED=$(date -r $FILE +%s%3N)
