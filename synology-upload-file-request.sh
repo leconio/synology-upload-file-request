@@ -90,7 +90,7 @@ echo "Uploading the file..."
 FILE_SIZE=$(stat --printf="%s" $FILE)
 FILE_LAST_MODIFIED=$(date -r $FILE +%s%3N)
 curl -s -L -X POST "$HOST/webapi/entry.cgi?api=SYNO.FileStation.Upload&method=upload&version=2&_sharing_id=%22$SHARING_ID%22" \
-        -b /tmp/syno_file_upload_cookies \
+        -b ./tmp/syno_file_upload_cookies \
         -F "overwrite=\"true\"" \
         -F "mtime=\"$FILE_LAST_MODIFIED\"" \
         -F "sharing_id=\"$SHARING_ID\"" \
